@@ -13,34 +13,41 @@ else:
 
 # Find synteny blocks in maf2synteny output, blocks_coords.txt
 with open("blocks_coords.txt", "r") as f:
-    # Check the Seq_id value of the first sequence in the header. If this value is greater than 1, then the initial
-    # sequences in the sample, as determined by Seq_id value, will never appear in a synteny block
-    line = f.readline()
-    line = f.readline()
-    block_span_counter_initial_value = int(line.split()[0])
-
     # Skip past header of blocks_coords.txt
+    line = f.readline()
     while line[0] != "-":
         line = f.readline()
 
     # Start looking for full-span synteny blocks
-    full_span_synteny_block_counter = 0
-    total_core_genome_length = 0
-    block_span_counter = block_span_counter_initial_value
+    synteny_block_counter = 0
+    core_genome_length = 0
+    block_span_counter = 0
+    seq_ids_in_block = []
     while line:
-        # Check whether the next line encodes the synteny block in the next genome sequence
-        if line.split()[0] == str(block_span_counter):
-            block_span_counter += 1
+        # Check whether the next line encodes a synteny block from a unique genome
+        seq_id = line.split()[0]
+        if seq_id.isnumeric():
+            if seq_id not in seq_ids_in_block:
+                block_span_counter += 1
+                seq_ids_in_block.append(seq_id)
         else:
-            block_span_counter = block_span_counter_initial_value
+            # Reset
+            block_span_counter = 0
+            seq_ids_in_block.clear()
 
         # True when a new block with sufficient span has been detected
-        if block_span_counter == min_block_span + 1:
-            block_span_counter = block_span_counter_initial_value
-            full_span_synteny_block_counter += 1
-            total_core_genome_length += int(line.split()[4])
+        if block_span_counter == min_block_span:
+            # Reset
+            block_span_counter = 0
+            seq_ids_in_block.clear()
+            synteny_block_counter += 1
+            core_genome_length += int(line.split()[4])
+
+            # Skip ahead to next block
+            while line[0] != "-":
+                line = f.readline()
 
         line = f.readline()
 
-print(str(full_span_synteny_block_counter) + "," + str(total_core_genome_length))
+print(str(synteny_block_counter) + "," + str(core_genome_length))
 
