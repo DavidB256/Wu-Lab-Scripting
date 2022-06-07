@@ -4,6 +4,7 @@ import sys
 # in SibeliaZ output file blocks_coords.gff
 # Calculates the total length of counted synteny blocks
 
+# Object instantiated for each synteny block
 class Block:
     def __init__(self, lines):
         self.lines = lines
@@ -11,6 +12,7 @@ class Block:
         self.is_nonrepetitive = self.determine_is_nonrepetitive()
         self.initial_length = int(lines[0].split()[4]) - int(lines[0].split()[3])
 
+    # Returns "True" iff there are no repeated accession codes in "self.lines"
     def determine_is_nonrepetitive(self):
         accession_codes = []
         for line in self.lines:
@@ -62,4 +64,3 @@ for block in blocks:
         total_initial_length += block.initial_length
 
 print(block_counter, total_initial_length, sep=",")
-

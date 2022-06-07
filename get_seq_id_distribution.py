@@ -31,4 +31,3 @@ for i in seq_id_counts:
     output_string += ","
 output_string = output_string[:-1]
 print(output_string)
-

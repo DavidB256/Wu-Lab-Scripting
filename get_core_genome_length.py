@@ -50,4 +50,3 @@ with open("blocks_coords.txt", "r") as f:
         line = f.readline()
 
 print(str(synteny_block_counter) + "," + str(core_genome_length))
-

@@ -64,4 +64,3 @@ with open("blocks_coords.txt", "r") as f:
 
 print("End of align_synteny_blocks.py.")
 
-

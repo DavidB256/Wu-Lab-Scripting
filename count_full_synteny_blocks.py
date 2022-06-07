@@ -1,12 +1,13 @@
 import sys
 
-# Counts number of synteny blocks in a given blocks_t
-# Takes one argument for min_block_span, the minimum
+# Counts number of full synteny blocks in a given blocks_t
+# Takes one argument for min_block_span, the size of the genome sample
 
 # Handle command line arguments
 min_block_span = 0
 if len(sys.argv) == 1:
     print("Error: No argument given.")
+    sys.exit()
 else:
     min_block_span = int(sys.argv[1])
 
@@ -37,4 +38,3 @@ with open("blocks_coords.txt", "r") as f:
         line = f.readline()
 
 print(total)
-

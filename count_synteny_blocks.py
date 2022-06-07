@@ -41,4 +41,3 @@ with open("blocks_coords.txt", "r") as f:
         line = f.readline()
 
 print(total)
-

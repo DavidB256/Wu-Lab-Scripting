@@ -19,4 +19,3 @@ with open("block_appearance_intervals.txt", "r") as f:
         line = f.readline()
 
 print("Total number of overlaps: %d" % overlap_counter)
-
