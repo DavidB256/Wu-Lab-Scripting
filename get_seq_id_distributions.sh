@@ -1,6 +1,4 @@
-!/bin/bash
-
-# Wrapper for get_seq_id_distribution.py
+#!/bin/bash
 
 # Setup
 op="/home/davidb/Desktop/working_sibeliaz/truncated_all/seq_id_distributions.csv"

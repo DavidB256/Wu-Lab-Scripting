@@ -1,19 +1,16 @@
 #!/bin/bash
 
-op="wrapper_sibeliaz_output.txt"
+op="output.txt"
 ip="fnas/*.fna"
-ms=(25 50 100 200 500 1000)
-as=(150 500 1000)
+ms=(50 100 200 500 1000 25)
 
 if [ -f $op ]; then
 	rm $op
 fi
 
 echo "Starting at `date`." >> $op
-for m in ${ms[@]}; do
-	for a in ${as[@]}; do
-		sibeliaz -n -k 15 -m $m -a $a -o "sibeliaz_out_m${m}_a${a}" $ip
-		echo "m=${m}, a=${a} job complete at `date`." >> $op	
-	done
+for i in ${ms[@]}; do
+	sibeliaz -n -k 15 -m $i -o "sibeliaz_out_$i" $ip
+	echo "m=${i} job complete at `date`." >> $op	
 done
-echo "Ending at `date`." >> $op
+echo "Ending at `data`." >> $op
